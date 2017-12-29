@@ -1,1 +1,0 @@
-let smartcast = require('vizeo')

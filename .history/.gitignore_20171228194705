@@ -1,9 +1,0 @@
-node_modules
-.idea
-.DS_Store
-thumbs.db
-*.log
-.DS_Store*
-Icon?
-._*
-dist

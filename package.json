@@ -11,7 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
     "readline": "^1.3.0",
+    "request": "^2.83.0",
     "rimraf": "^2.6.2",
     "vizio-smart-cast": "^1.1.6"
   },

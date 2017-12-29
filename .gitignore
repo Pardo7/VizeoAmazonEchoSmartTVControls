@@ -7,3 +7,5 @@ thumbs.db
 Icon?
 ._*
 dist
+.history
+package-lock.json

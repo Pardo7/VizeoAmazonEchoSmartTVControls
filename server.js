@@ -292,7 +292,7 @@ app.post('/inputthree', (request, response) => {
 				}
 			};
 
-			tv.set.input('HDMI-3');
+			tv.input.set('HDMI-3');
 
 		} else {
 			// Not a recognized type

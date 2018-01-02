@@ -2,13 +2,14 @@
 
 import smartcast from 'vizio-smart-cast';
 import readline from 'readline';
+// Here I'm going to import default err & succ library
 import { request } from 'http';
 import ejs from 'ejs';
 
 // import express from 'express';
-var express = require('express');
-var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({
+let express = require('express');
+let bodyParser = require('body-parser');
+let parseUrlencoded = bodyParser.urlencoded({
 	extended: true
 });
 // import request 	 from 'request';
@@ -27,33 +28,10 @@ app.get('/', (request, response) => {
 	response.send('<h1>Server Initialized</h1>');
 });
 
-// app.post('/controloff', (request, response) => {
-// 	response.send('<h1>Complete</h1>');
-// });
-
-
-// tv.power.currentMode().then(data => {
-// 	// console.log('I\'ve initiated the server');
-// 	// console.log(data);
-// });
-
-// tv.input.list().then(data => {
-// 	console.log('-------INPUT LIST--------');
-// 	console.log(data);
-// });
-
-// tv.input.current().then(data => {
-// 	console.log('response', data);
-// });
-
-// tv.control.volume.down();
-
-
 app.post('/controloff', (request, response) => {
-	// tv.control.menu();
 
 	console.log("received echo request");
-	var requestBody = "";
+	let requestBody = "";
 
 	// Will accumilate the date
 	request.on('data', function(data) {
@@ -62,11 +40,10 @@ app.post('/controloff', (request, response) => {
 
 	// Called when all data has been accumilated
 	request.on('end', function() {
-		var responseBody = {};
-		// console.log(requestBody);
-		// console.log(JSON.stringify(requestBody));
+		let responseBody = {};
+
 		// Parsing the request body for information
-		var jsonData = JSON.parse(requestBody);
+		let jsonData = JSON.parse(requestBody);
 		console.log(jsonData);
 		if (jsonData.request.type == 'LaunchRequest') {
 
@@ -128,24 +105,20 @@ app.post('/controloff', (request, response) => {
 });
 
 app.post('/controlon', (request, response) => {
-	// tv.control.menu();
-
-	console.log("received echo request");
-	var requestBody = "";
+	let requestBody = "";
 
 	// Will accumilate the date
-	request.on('data', function(data) {
+	request.on('data', data => {
 		requestBody += data;
 	});
 
 	// Called when all data has been accumilated
-	request.on('end', function() {
-		var responseBody = {};
-		// console.log(requestBody);
-		// console.log(JSON.stringify(requestBody));
+	request.on('end', () => {
+		let responseBody = {};
+
 		// Parsing the request body for information
-		var jsonData = JSON.parse(requestBody);
-		console.log(jsonData);
+		let jsonData = JSON.parse(requestBody);
+		// console.log(jsonData);
 		if (jsonData.request.type == 'LaunchRequest') {
 
 			// crafting a response
@@ -205,6 +178,150 @@ app.post('/controlon', (request, response) => {
 	});
 });
 
-// smartcast.discover(device => {
-// 	console.log(device);
-// });
+app.post('/inputtwo', (request, response) => {
+	let requestBody = "";
+
+	// Will accumilate the date
+	request.on('data', data => {
+		requestBody += data;
+	});
+
+	// Called when all data has been accumilated
+	request.on('end', () => {
+		let responseBody = {};
+
+		// Parsing the request body for information
+		let jsonData = JSON.parse(requestBody);
+		// console.log(jsonData);
+		if (jsonData.request.type == 'LaunchRequest') {
+
+			// crafting a response
+			responseBody = {
+				"version": "0.1",
+				"response": {
+					"outputSpeech": {
+						"type": "PlainText",
+						"text": "Initializing input two."
+					},
+					"card": {
+						"type": "Simple",
+						"title": "Opened",
+						"content": "You have started the Sudo AI Node Control"
+					},
+					"reprompt": {
+						"outputSpeech": {
+							"type": "PlainText",
+							"text": "Say a command"
+						}
+					},
+					"shouldEndSession": true
+				}
+			};
+
+			tv.input.set('HDMI-2');
+
+		} else {
+			// Not a recognized type
+			responseBody = {
+				"version": "0.1",
+				"response": {
+					"outputSpeech": {
+						"type": "PlainText",
+						"text": "Could not parse data"
+					},
+					"card": {
+						"type": "Simple",
+						"title": "Error Parsing",
+						"content": JSON.stringify(requestBody)
+					},
+					"reprompt": {
+						"outputSpeech": {
+							"type": "PlainText",
+							"text": "Say a command"
+						}
+					},
+					"shouldEndSession": true
+				}
+			};
+		}
+
+		response.statusCode = 200;
+		response.contentType('application/json');
+		response.send(responseBody);
+
+	});
+});
+
+app.post('/inputthree', (request, response) => {
+	let requestBody = "";
+
+	// Will accumilate the date
+	request.on('data', data => {
+		requestBody += data;
+	});
+
+	// Called when all data has been accumilated
+	request.on('end', () => {
+		let responseBody = {};
+
+		// Parsing the request body for information
+		let jsonData = JSON.parse(requestBody);
+		// console.log(jsonData);
+		if (jsonData.request.type == 'LaunchRequest') {
+
+			// crafting a response
+			responseBody = {
+				"version": "0.1",
+				"response": {
+					"outputSpeech": {
+						"type": "PlainText",
+						"text": "Initializing input three."
+					},
+					"card": {
+						"type": "Simple",
+						"title": "Opened",
+						"content": "You have started the Sudo AI Node Control"
+					},
+					"reprompt": {
+						"outputSpeech": {
+							"type": "PlainText",
+							"text": "Say a command"
+						}
+					},
+					"shouldEndSession": true
+				}
+			};
+
+			tv.set.input('HDMI-3');
+
+		} else {
+			// Not a recognized type
+			responseBody = {
+				"version": "0.1",
+				"response": {
+					"outputSpeech": {
+						"type": "PlainText",
+						"text": "Could not parse data"
+					},
+					"card": {
+						"type": "Simple",
+						"title": "Error Parsing",
+						"content": JSON.stringify(requestBody)
+					},
+					"reprompt": {
+						"outputSpeech": {
+							"type": "PlainText",
+							"text": "Say a command"
+						}
+					},
+					"shouldEndSession": true
+				}
+			};
+		}
+
+		response.statusCode = 200;
+		response.contentType('application/json');
+		response.send(responseBody);
+
+	});
+});

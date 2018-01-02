@@ -367,6 +367,7 @@ app.post('/volumeup', (request, response) => {
 			};
 
 			tv.control.volume.up();
+			tv.control.volume.up();
 
 		} else {
 			// Not a recognized type
@@ -440,6 +441,7 @@ app.post('/volumedown', (request, response) => {
 				}
 			};
 
+			tv.control.volume.down();
 			tv.control.volume.down();
 
 		} else {
